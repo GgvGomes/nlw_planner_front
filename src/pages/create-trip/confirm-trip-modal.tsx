@@ -4,11 +4,15 @@ import { Button } from "../../components/button";
 interface IConfirmTripModalProps {
   closeConfirmTripModal: () => void;
   createTrip: (event: React.FormEvent<HTMLFormElement>) => void;
+  setOwnerName: React.Dispatch<React.SetStateAction<string>>;
+  setOwnerEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function ConfirmTripModal({
   closeConfirmTripModal,
   createTrip,
+  setOwnerEmail,
+  setOwnerName,
 }: IConfirmTripModalProps) {
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
@@ -38,6 +42,7 @@ export function ConfirmTripModal({
               type="text"
               placeholder="Seu nome completo"
               className="bg-transparent text-lg placeholder-zinc-400 w-40 outline-none flex-1"
+              onChange={(event) => setOwnerName(event.target.value)}
             />
           </div>
 
@@ -48,13 +53,11 @@ export function ConfirmTripModal({
               type="email"
               placeholder="Seu email pessoal"
               className="bg-transparent text-lg placeholder-zinc-400 w-40 outline-none flex-1"
+              onChange={(event) => setOwnerEmail(event.target.value)}
             />
           </div>
 
-          <Button
-            type="submit"
-            size="full"
-            variant="primary">
+          <Button type="submit" size="full" variant="primary">
             Confirmar criação da viagem
           </Button>
         </form>

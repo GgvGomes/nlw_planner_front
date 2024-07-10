@@ -11,17 +11,20 @@ interface IDestinationAndDateStepProps {
   isGuestInputOpen: boolean;
   openGuestInput: () => void;
   closeGuestInput: () => void;
+  setDestination: React.Dispatch<React.SetStateAction<string>>;
+  setEventStartAndEndDates: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
+  eventStartAndEndDates: DateRange | undefined;
 }
 
 export function DestinationAndDateStep({
   closeGuestInput,
   isGuestInputOpen,
   openGuestInput,
+  setDestination,
+  setEventStartAndEndDates,
+  eventStartAndEndDates
 }: IDestinationAndDateStepProps) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-  const [eventStartAndEndDates, setEventStartAndEndDates] = useState<
-    DateRange | undefined
-  >();
 
   function openDatePicker() {
     setIsDatePickerOpen(true);
@@ -31,9 +34,12 @@ export function DestinationAndDateStep({
     setIsDatePickerOpen(false);
   }
 
-  const displayedDate = eventStartAndEndDates?.from && eventStartAndEndDates?.to
-    ? format(eventStartAndEndDates.from, "d' de 'LLL").concat(' até ').concat(format(eventStartAndEndDates.to, "d' de 'LLL"))
-    : null;
+  const displayedDate =
+    eventStartAndEndDates?.from && eventStartAndEndDates?.to
+      ? format(eventStartAndEndDates.from, "d' de 'LLL")
+          .concat(" até ")
+          .concat(format(eventStartAndEndDates.to, "d' de 'LLL"))
+      : null;
 
   return (
     <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-3">
@@ -44,6 +50,7 @@ export function DestinationAndDateStep({
           type="text"
           placeholder="Para onde você vai?"
           className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
+          onChange={(event) => setDestination(event.target.value)}
         />
       </div>
 
@@ -52,7 +59,7 @@ export function DestinationAndDateStep({
         disabled={isGuestInputOpen}
         className="flex items-center gap-2 outline-none text-left">
         <Calendar className="size-5 text-zinc-400" />
-        <span className="bg-transparent text-lg text-zinc-400 flex-1">
+        <span className="bg-transparent text-lg text-zinc-400 flex-1 min-w-24">
           {displayedDate || "Quando?"}
         </span>
       </button>
