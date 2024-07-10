@@ -98,6 +98,7 @@ export function CreateTripPage() {
         </div>
 
         <div className="space-y-4">
+          {/* TO DO: Criar validação pra data ser maior q hj */}
           <DestinationAndDateStep
             closeGuestInput={closeGuestInput}
             isGuestInputOpen={isGuestInputOpen}
